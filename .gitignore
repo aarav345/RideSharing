@@ -1,0 +1,63 @@
+# === GENERAL ===
+node_modules/
+.env
+.env.*   # For .env.development, .env.production, etc.
+.DS_Store
+Thumbs.db
+
+# === LOG FILES ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# === FRONTEND (React) ===
+/client/node_modules/
+/client/build/
+/client/.env
+/client/.env.* 
+/client/.DS_Store
+
+# Optional: Vite or other tool configs
+/client/dist/
+/client/.vite/
+
+# === BACKEND (Express/Node.js) ===
+/server/node_modules/
+/server/.env
+/server/.env.* 
+/server/.DS_Store
+
+# Build output
+/server/dist/
+/server/build/
+
+# === MONGODB ===
+dump/
+*.mongodb
+*.mongodump
+
+# === IDE/EDITOR FILES ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === TESTING ===
+coverage/
+*.lcov
+
+# === OS-SPECIFIC FILES ===
+*.DS_Store
+*.AppleDouble
+*.LSOverride
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# === Docker ===
+**/docker-compose.override.yml
+**/Dockerfile.local
+**/*.local.yml
