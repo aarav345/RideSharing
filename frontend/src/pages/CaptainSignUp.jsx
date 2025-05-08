@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import CaptainDataContext from "../context/CaptainContext";
+import axios from "axios";
+
 
 const CaptainSignUp = () => {
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const [vehicleColor, setVehicleColor] = useState("");
+  const [vehicleColor, setVehicleColor] = useState(""); 
   const [vehiclePlate, setVehiclePlate] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
 
-  const [captainData, setCaptainData] = useState({
-    fullname: {
-      firstname: "",
-      lastname: "",
-    },
-    email: "",
-    password: "",
-    vehicle: {
-      color: "",
-      plate: "",
-      capacity: 0,
-      vehicleType: "",
-    },
-  });
+  const {captain, setCaptain } = useContext(CaptainDataContext);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setCaptainData({
+    const newCaptain = {
       fullname: {
         firstname: firstName,
         lastname: lastName,
       },
-      email: email,
-      password: password,
+      email,
+      password,
       vehicle: {
         color: vehicleColor,
         plate: vehiclePlate,
         capacity: vehicleCapacity,
-        vehicleType: vehicleType,
+        vehicleType,
       },
-    });
+    };
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/register`, newCaptain);
+
+    if (response.status === 201) {
+      const data = response.data;
+      setCaptain(data.captain);
+      localStorage.setItem("token", data.token);
+      navigate("/captain-home");
+    }
 
     setEmail('')
     setFirstName('')
@@ -54,9 +54,6 @@ const CaptainSignUp = () => {
     setVehicleType('')
   };
 
-  useEffect(() => {
-    console.log(captainData);
-  }, [captainData]);
 
   return (
     <>
